@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ICEM Certificate Portal</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Georgia&display=swap">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: linear-gradient(to right, #e3f2fd, #f1f8e9);
+      color: #002147;
+      text-align: center;
+    }
+
+    header {
+      padding: 20px 0;
+    }
+
+    header img {
+      height: 80px;
+    }
+
+    .welcome {
+      margin-top: 40px;
+    }
+
+    .welcome h1 {
+      font-size: 36px;
+      margin: 10px 0;
+      color: #002147;
+    }
+
+    .welcome p {
+      font-size: 18px;
+      color: #444;
+    }
+
+    .buttons {
+      margin-top: 30px;
+    }
+
+    .buttons a {
+      display: inline-block;
+      margin: 10px;
+      padding: 12px 20px;
+      background-color: #002147;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+    }
+
+    .buttons a:hover {
+      background-color: #003366;
+    }
+
+    .menu-toggle {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      cursor: pointer;
+      z-index: 100;
+    }
+
+    .menu-toggle div {
+      width: 30px;
+      height: 4px;
+      background-color: #002147;
+      margin: 6px 0;
+      transition: 0.4s;
+    }
+
+    .nav-menu {
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 30px;
+      background: white;
+      border-radius: 6px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+
+    .nav-menu a {
+      display: block;
+      padding: 12px 20px;
+      color: #002147;
+      text-decoration: none;
+      border-bottom: 1px solid #eee;
+    }
+
+    .nav-menu a:hover {
+      background: #f0f0f0;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding: 20px;
+      font-size: 14px;
+      background: #002147;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .welcome h1 {
+        font-size: 28px;
+      }
+      .buttons a {
+        width: 80%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="menu-toggle" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <div class="nav-menu" id="navMenu">
+    <a href="admin-login.html">🔐 Admin Login</a>
+    <a href="download.html">📥 Download Certificate</a>
+    <a href="verify.html">✅ Verify Certificate</a>
+    <a href="contact.html">📬 Contact Us</a>
+  </div>
+
+  <header>
+    <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo">
+  </header>
+
+  <section class="welcome">
+    <h1>Welcome to ICEM Certificate Verification Portal</h1>
+    <p>Secure. Smart. Verified.</p>
+  </section>
+
+  <section class="buttons">
+    <a href="admin-login.html">Admin Login</a>
+    <a href="verify.html">Verify Certificate</a>
+    <a href="download.html">Download Certificate</a>
+    <a href="contact.html">Contact ICEM</a>
+  </section>
+
+  <footer>
+    © 2025. Indira College of Engineering and Management. <br>
+    Developed by Gaurav Raju Nawale.
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('navMenu');
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
+</body>
+</html>
