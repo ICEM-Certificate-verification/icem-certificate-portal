@@ -2,146 +2,107 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>ICEM Admin Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Login | ICEM Certificate Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #e3f2fd, #f1f8e9);
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to right top, #e6f7ff, #e0f2f1); /* soft gradient bg */
+      min-height: 100vh;
       display: flex;
-      justify-content: center;
       align-items: center;
-      height: 100vh;
+      justify-content: center;
     }
 
-    .login-container {
-      background: white;
+    .login-box {
+      background: linear-gradient(to bottom right, #d0f0ff, #f0faff); /* sky blue */
+      border-radius: 20px;
       padding: 40px;
-      border-radius: 16px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 400px;
-      position: relative;
-    }
-
-    .login-container img {
-      display: block;
-      margin: 0 auto 20px;
-      height: 60px;
-    }
-
-    .login-container h2 {
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+      max-width: 420px;
+      width: 90%;
+      transition: all 0.3s ease-in-out;
       text-align: center;
-      color: #002147;
+    }
+
+    .login-box img {
+      width: 70px;
+      margin-bottom: 15px;
+    }
+
+    .login-box h2 {
+      font-size: 24px;
+      color: #003366;
       margin-bottom: 30px;
+      font-weight: 600;
     }
 
-    .input-group {
-      position: relative;
-      margin-bottom: 25px;
-    }
-
-    .input-group input {
+    .login-box input[type="email"],
+    .login-box input[type="password"] {
       width: 100%;
-      padding: 12px;
-      border: 2px solid #ccc;
-      border-radius: 6px;
-      outline: none;
-      transition: border-color 0.3s;
-    }
-
-    .input-group label {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      background: white;
-      padding: 0 6px;
-      color: #777;
-      pointer-events: none;
-      transition: all 0.3s ease;
-    }
-
-    .input-group input:focus {
-      border-color: #002147;
-    }
-
-    .input-group input:focus + label,
-    .input-group input:not(:placeholder-shown) + label {
-      top: -10px;
-      left: 10px;
-      font-size: 12px;
-      color: #002147;
-    }
-
-    button {
-      width: 100%;
-      padding: 12px;
-      background: #002147;
-      color: white;
-      border: none;
-      border-radius: 6px;
+      padding: 12px 15px;
+      margin: 10px 0 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
       font-size: 16px;
-      font-weight: bold;
+      background-color: #ffffff;
+    }
+
+    .login-box button {
+      background-color: #002244;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      width: 100%;
+      font-size: 16px;
+      font-weight: 600;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: 0.3s;
     }
 
-    button:hover {
-      background: #003366;
-    }
-
-    .error {
-      color: red;
-      font-size: 14px;
-      text-align: center;
-      margin-top: 10px;
-      display: none;
+    .login-box button:hover {
+      background-color: #004080;
     }
 
     .footer {
-      text-align: center;
-      margin-top: 30px;
       font-size: 12px;
+      margin-top: 20px;
       color: #555;
+    }
+
+    .footer span {
+      color: #003366;
+      font-weight: 500;
     }
   </style>
 </head>
 <body>
 
-  <div class="login-container">
-    <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo" />
+  <div class="login-box">
+    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Indira_Group_of_Institutes_logo.png/220px-Indira_Group_of_Institutes_logo.png" alt="ICEM Logo">
     <h2>Admin Login</h2>
-    <div class="input-group">
-      <input type="email" id="email" placeholder=" " required />
-      <label for="email">Email Address</label>
-    </div>
-    <div class="input-group">
-      <input type="password" id="password" placeholder=" " required />
-      <label for="password">Password</label>
-    </div>
-    <button onclick="login()">Login</button>
-    <div class="error" id="error">❌ Invalid credentials. Please try again.</div>
+    
+    <form action="admin-dashboard.html" method="post">
+      <input type="email" placeholder="Email Address" required />
+      <input type="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
 
     <div class="footer">
-      © 2025 Indira College of Engineering and Management <br />
-      Developed by Gaurav Raju Nawale
+      © 2025 <span>Indira College of Engineering and Management</span><br>
+      Developed by <span>Gaurav Raju Nawale</span>
     </div>
   </div>
-
-  <script>
-    function login() {
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value.trim();
-      const errorMsg = document.getElementById("error");
-
-      if (email === "admin@icem.edu.in" && password === "icem123") {
-        window.location.href = "admin-dashboard.html";
-      } else {
-        errorMsg.style.display = "block";
-      }
-    }
-  </script>
 
 </body>
 </html>
