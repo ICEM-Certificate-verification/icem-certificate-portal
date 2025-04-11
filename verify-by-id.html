@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Verify by Certificate ID | ICEM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #87CEEB, #1e3c72);
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      backdrop-filter: blur(15px);
+      padding: 40px 30px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      max-width: 500px;
+      width: 100%;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .logo-container {
+      margin-bottom: 20px;
+    }
+
+    .logo-container img {
+      max-width: 160px;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #333;
+    }
+
+    .btn {
+      background-color: #001f54;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s ease;
+      width: 100%;
+    }
+
+    .btn:hover {
+      background-color: #003399;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 15px;
+      background-color: rgba(255,255,255,0.1);
+      padding: 15px;
+      border-radius: 10px;
+      display: none;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #e0e0e0;
+    }
+
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 20px;
+      }
+
+      .btn {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="logo-container">
+      <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo">
+    </div>
+
+    <h2>Verify Certificate by ID</h2>
+
+    <input type="text" id="certID" placeholder="Enter Certificate Number (e.g. ICEM2025LIB001)" />
+    <button class="btn" onclick="verify()">Verify</button>
+
+    <div class="result" id="resultBox"></div>
+
+    <footer>
+      &copy; 2025 Indira College of Engineering and Management.<br />
+      Developed by Gaurav Raju Nawale.
+    </footer>
+  </div>
+
+  <script>
+    function verify() {
+      const certID = document.getElementById("certID").value.trim();
+      const result = document.getElementById("resultBox");
+
+      if (certID === "ICEM2025LIB001") {
+        result.innerHTML = `
+          ✅ <strong>Certificate Verified</strong><br><br>
+          <b>Name:</b> Nawale Gaurav Raju<br>
+          <b>PRN:</b> CO24OB1121<br>
+          <b>Branch:</b> Computer Engineering<br>
+          <b>Date:</b> 10-Apr-2025<br>
+          <b>Title:</b> Certificate of Appreciation<br>
+          <b>Achievement:</b> Outstanding engagement with library resources and promotion of knowledge culture.
+        `;
+        result.style.display = "block";
+        result.style.color = "#ccffcc";
+      } else {
+        result.innerHTML = `❌ Certificate Not Found. Please contact the issuing authority.`;
+        result.style.display = "block";
+        result.style.color = "#ffcccc";
+      }
+    }
+  </script>
+
+</body>
+</html>
