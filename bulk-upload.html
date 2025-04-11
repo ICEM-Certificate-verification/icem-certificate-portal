@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bulk Upload Certificates | ICEM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      background: linear-gradient(to right, #87CEEB, #1e3c72);
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.15);
+      padding: 40px;
+      border-radius: 15px;
+      color: white;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      width: 500px;
+      text-align: center;
+    }
+
+    input[type="file"] {
+      padding: 10px;
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 12px 30px;
+      background-color: #001f54;
+      color: white;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    .success {
+      margin-top: 20px;
+      color: lightgreen;
+    }
+
+    .logo-container img {
+      max-width: 160px;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo-container">
+      <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo">
+    </div>
+    <h2>Bulk Upload Certificates</h2>
+
+    <form action="/bulk-upload" method="POST" enctype="multipart/form-data">
+      <input type="file" name="excel" accept=".xlsx" required />
+      <button type="submit">Generate Certificates</button>
+    </form>
+
+    {% if message %}
+    <div class="success">{{ message }}</div>
+    {% endif %}
+  </div>
+</body>
+</html>
