@@ -3,106 +3,120 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Login | ICEM Certificate Portal</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <title>Admin Login | ICEM</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
-    * {
+    body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+      background: linear-gradient(to right, #87CEEB, #1e3c72);
       font-family: 'Poppins', sans-serif;
-    }
-
-    body {
-      background: linear-gradient(to right top, #e6f7ff, #e0f2f1); /* soft gradient bg */
-      min-height: 100vh;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
 
-    .login-box {
-      background: linear-gradient(to bottom right, #d0f0ff, #f0faff); /* sky blue */
-      border-radius: 20px;
-      padding: 40px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-      max-width: 420px;
-      width: 90%;
-      transition: all 0.3s ease-in-out;
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      backdrop-filter: blur(15px);
+      padding: 40px 30px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      max-width: 400px;
+      width: 100%;
+      color: #ffffff;
       text-align: center;
     }
 
-    .login-box img {
-      width: 70px;
-      margin-bottom: 15px;
+    .logo-container {
+      margin-bottom: 20px;
     }
 
-    .login-box h2 {
-      font-size: 24px;
-      color: #003366;
-      margin-bottom: 30px;
-      font-weight: 600;
+    .logo-container img {
+      max-width: 160px;
     }
 
-    .login-box input[type="email"],
-    .login-box input[type="password"] {
+    h2 {
+      margin-bottom: 25px;
+    }
+
+    input[type="email"],
+    input[type="password"] {
       width: 100%;
       padding: 12px 15px;
       margin: 10px 0 20px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      font-size: 16px;
-      background-color: #ffffff;
-    }
-
-    .login-box button {
-      background-color: #002244;
-      color: white;
-      padding: 12px;
       border: none;
       border-radius: 10px;
+      font-size: 16px;
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    button {
       width: 100%;
+      padding: 12px;
+      background-color: #001f54;
+      color: white;
+      border: none;
+      border-radius: 10px;
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
-      transition: 0.3s;
+      transition: 0.3s ease;
     }
 
-    .login-box button:hover {
-      background-color: #004080;
+    button:hover {
+      background-color: #003399;
     }
 
-    .footer {
+    .error {
+      color: #ffbaba;
+      font-size: 14px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    footer {
+      margin-top: 30px;
       font-size: 12px;
-      margin-top: 20px;
-      color: #555;
-    }
-
-    .footer span {
-      color: #003366;
-      font-weight: 500;
+      color: #e0e0e0;
     }
   </style>
 </head>
 <body>
 
-  <div class="login-box">
-    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Indira_Group_of_Institutes_logo.png/220px-Indira_Group_of_Institutes_logo.png" alt="ICEM Logo">
-    <h2>Admin Login</h2>
-    
-    <form action="admin-dashboard.html" method="post">
-      <input type="email" placeholder="Email Address" required />
-      <input type="password" placeholder="Password" required />
-      <button type="submit">Login</button>
-    </form>
-
-    <div class="footer">
-      © 2025 <span>Indira College of Engineering and Management</span><br>
-      Developed by <span>Gaurav Raju Nawale</span>
+  <div class="card">
+    <div class="logo-container">
+      <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo">
     </div>
+
+    <h2>Admin Login</h2>
+
+    <input type="email" id="email" placeholder="Email Address" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button onclick="login()">Login</button>
+
+    <div class="error" id="error">❌ Invalid credentials</div>
+
+    <footer>
+      &copy; 2025. Indira College of Engineering and Management.<br />
+      Developed by Gaurav Raju Nawale.
+    </footer>
   </div>
+
+  <script>
+    function login() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const error = document.getElementById('error');
+
+      if (email === "admin@icem.edu.in" && password === "icem123") {
+        window.location.href = "admin-dashboard.html";
+      } else {
+        error.style.display = "block";
+      }
+    }
+  </script>
 
 </body>
 </html>
