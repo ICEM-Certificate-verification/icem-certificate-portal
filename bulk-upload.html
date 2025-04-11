@@ -1,80 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bulk Upload Certificates | ICEM</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
-  <style>
-    body {
-      background: linear-gradient(to right, #87CEEB, #1e3c72);
-      font-family: 'Poppins', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
+@app.route('/bulk-upload', methods=['GET', 'POST'])
+def bulk_upload():
+    if request.method == 'POST':
+        file = request.files['excel']
+        if not file:
+            return render_template("bulk-upload.html", message="❌ No file selected.")
+        
+        df = pd.read_excel(file)
+        cert_ids = []
+        links = []
 
-    .card {
-      background: rgba(255,255,255,0.15);
-      padding: 40px;
-      border-radius: 15px;
-      color: white;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
-      width: 500px;
-      text-align: center;
-    }
+        for i, row in df.iterrows():
+            name = row['Name']
+            prn = row['PRN']
+            branch = row['Branch']
+            date = str(row['Date'].date()) if hasattr(row['Date'], 'date') else str(row['Date'])
+            title = row['Title']
+            achievement = row['Achievement']
 
-    input[type="file"] {
-      padding: 10px;
-      width: 100%;
-      border-radius: 10px;
-      margin-bottom: 20px;
-    }
+            cert_id = f"ICEM2025LIB{str(abs(hash(name + prn)) % 1000).zfill(3)}"
+            cert_ids.append(cert_id)
+            cert_link = f"https://icem-certificate-verification.github.io/certificates/{cert_id}.pdf"
+            links.append(cert_link)
 
-    button {
-      padding: 12px 30px;
-      background-color: #001f54;
-      color: white;
-      font-weight: 600;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      cursor: pointer;
-    }
+            # Generate QR
+            qr = qrcode.make(cert_link)
+            qr_path = f"{CERT_DIR}/{cert_id}_qr.png"
+            qr.save(qr_path)
 
-    h2 {
-      margin-bottom: 20px;
-    }
+            # Generate PDF
+            pdf = FPDF(orientation='L', unit='mm', format='A4')
+            pdf.add_page()
+            pdf.image("static/certificate-bg.png", x=0, y=0, w=297)
 
-    .success {
-      margin-top: 20px;
-      color: lightgreen;
-    }
+            pdf.set_font("Arial", 'B', 24)
+            pdf.set_text_color(255, 215, 0)
+            pdf.cell(0, 40, title, ln=True, align='C')
 
-    .logo-container img {
-      max-width: 160px;
-      margin-bottom: 15px;
-    }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <div class="logo-container">
-      <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo">
-    </div>
-    <h2>Bulk Upload Certificates</h2>
+            pdf.set_font("Arial", '', 18)
+            pdf.set_text_color(255, 255, 255)
+            pdf.cell(0, 20, "This certificate is awarded to", ln=True, align='C')
 
-    <form action="/bulk-upload" method="POST" enctype="multipart/form-data">
-      <input type="file" name="excel" accept=".xlsx" required />
-      <button type="submit">Generate Certificates</button>
-    </form>
+            pdf.set_font("Arial", 'B', 28)
+            pdf.cell(0, 20, name, ln=True, align='C')
 
-    {% if message %}
-    <div class="success">{{ message }}</div>
-    {% endif %}
-  </div>
-</body>
-</html>
+            pdf.set_font("Arial", '', 16)
+            pdf.multi_cell(0, 10, f"In recognition of {achievement}\n\nBranch: {branch} | PRN: {prn} | Date: {date}", align='C')
+
+            pdf.image(qr_path, x=125, y=160, w=40)
+            pdf.set_font("Arial", '', 12)
+            pdf.set_y(-20)
+            pdf.cell(0, 10, f"Verify this certificate at: {cert_link}", align='C')
+
+            pdf_path = f"{CERT_DIR}/{cert_id}.pdf"
+            pdf.output(pdf_path)
+
+        # Update and save Excel file
+        df['Certificate ID'] = cert_ids
+        df['Certificate Link'] = links
+        output_excel = os.path.join(CERT_DIR, "generated_certificates.xlsx")
+        df.to_excel(output_excel, index=False)
+
+        # Message with download link
+        msg = f"✅ {len(df)} certificates generated successfully!<br><br>"
+        msg += f"📄 <a href='/static/certificates/generated_certificates.xlsx' target='_blank' style='color:white;'>Download Excel Report</a>"
+        return render_template("bulk-upload.html", message=msg)
+
+    return render_template("bulk-upload.html")
