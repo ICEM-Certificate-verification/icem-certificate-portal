@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contact Us | ICEM</title>
+  <title>Contact ICEM | Certificate Portal</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     body {
@@ -15,51 +15,49 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      text-align: center;
     }
 
     .card {
       background: rgba(255, 255, 255, 0.15);
       border-radius: 15px;
       backdrop-filter: blur(15px);
-      padding: 40px 20px;
+      padding: 40px 30px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-      max-width: 500px;
+      max-width: 600px;
       width: 100%;
       color: #ffffff;
+      text-align: center;
+    }
+
+    .logo-container {
+      margin-bottom: 20px;
     }
 
     .logo-container img {
       max-width: 160px;
-      margin-bottom: 10px;
     }
 
     h2 {
-      margin: 10px 0 20px;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      margin-bottom: 25px;
     }
 
     input, textarea {
-      width: 80%;
-      padding: 12px;
-      margin-bottom: 20px;
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0 20px;
       border: none;
       border-radius: 10px;
       font-size: 16px;
       background: rgba(255, 255, 255, 0.9);
       color: #333;
-      resize: none;
+      resize: vertical;
     }
 
-    .btn {
+    button {
+      width: 100%;
+      padding: 12px;
       background-color: #001f54;
       color: white;
-      padding: 12px 20px;
       border: none;
       border-radius: 10px;
       font-size: 16px;
@@ -68,22 +66,8 @@
       transition: 0.3s ease;
     }
 
-    .btn:hover {
+    button:hover {
       background-color: #003399;
-    }
-
-    .success-message, .error-message {
-      margin-top: 15px;
-      font-weight: 500;
-      display: none;
-    }
-
-    .success-message {
-      color: #ccffcc;
-    }
-
-    .error-message {
-      color: #ffcccc;
     }
 
     footer {
@@ -100,45 +84,21 @@
       <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo">
     </div>
 
-    <h2>Contact Us</h2>
+    <h2>Contact Certificate Department</h2>
 
-    <form id="contactForm">
-      <input type="text" id="name" placeholder="Your Name" required />
-      <input type="email" id="email" placeholder="Your Email" required />
-      <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
-      <button type="submit" class="btn">Send Message</button>
+    <form action="mailto:certificate@indiraicem.ac.in" method="POST" enctype="text/plain">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <input type="text" name="subject" placeholder="Subject" />
+      <textarea name="message" rows="4" placeholder="Your Message..." required></textarea>
+      <button type="submit">Send Message</button>
     </form>
 
-    <div class="success-message" id="success-message">
-      ✅ Your message has been sent successfully!
-    </div>
-    <div class="error-message" id="error-message">
-      ❌ There was an error sending your message. Please try again later.
-    </div>
-
     <footer>
-      © 2025 Indira College of Engineering and Management.<br />
+      &copy; 2025. Indira College of Engineering and Management.<br />
       Developed by Gaurav Raju Nawale.
     </footer>
   </div>
-
-  <script>
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      // Simulate form submission
-      // Replace this with actual form submission logic (e.g., using Fetch API to send data to a server)
-      const successMessage = document.getElementById('success-message');
-      const errorMessage = document.getElementById('error-message');
-
-      // Simulate a successful submission
-      successMessage.style.display = 'block';
-      errorMessage.style.display = 'none';
-
-      // Clear form fields
-      document.getElementById('contactForm').reset();
-    });
-  </script>
 
 </body>
 </html>
