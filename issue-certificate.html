@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Issue New Certificate | ICEM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #87CEEB, #1e3c72);
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      backdrop-filter: blur(15px);
+      padding: 40px 30px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      max-width: 600px;
+      width: 100%;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .logo-container img {
+      max-width: 160px;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      margin-bottom: 25px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #333;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: #001f54;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #003399;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="logo-container">
+      <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo" />
+    </div>
+
+    <h2>Issue New Certificate</h2>
+
+    <form action="/generate-certificate" method="POST">
+      <input type="text" name="name" placeholder="Full Name" required />
+      <input type="text" name="prn" placeholder="PRN (e.g. CO24OB1121)" required />
+      <input type="text" name="branch" placeholder="Branch (e.g. Computer Engineering)" required />
+      <input type="date" name="date" required />
+      <input type="text" name="title" placeholder="Certificate Title" required />
+      <textarea name="achievement" placeholder="Achievement / Description" rows="4" required></textarea>
+      <button type="submit">Generate Certificate</button>
+    </form>
+
+    <footer>
+      &copy; 2025. Indira College of Engineering and Management.<br />
+      Developed by Gaurav Raju Nawale.
+    </footer>
+  </div>
+
+</body>
+</html>
