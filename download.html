@@ -97,7 +97,7 @@
     </div>
 
     <footer>
-      © 2025 Indira College of Engineering and Management.<br />
+      &copy; 2025 Indira College of Engineering and Management.<br />
       Developed by Gaurav Raju Nawale.
     </footer>
   </div>
@@ -108,14 +108,12 @@
       const errorMessage = document.getElementById("error-message");
       errorMessage.style.display = "none";
 
-      // Replace the following URL with your actual certificate storage path
-      const certificateURL = `https://icem-certificate-verification.github.io/certificates/${certID}.pdf`;
+      // In production, this path should be served via Flask (e.g. /certificates/<certID>.pdf)
+      const certificateURL = `/static/certificates/${certID}.pdf`;
 
-      // Check if the certificate exists by attempting to fetch the file
       fetch(certificateURL, { method: 'HEAD' })
         .then(response => {
           if (response.ok) {
-            // Initiate download
             const link = document.createElement('a');
             link.href = certificateURL;
             link.download = `${certID}.pdf`;
@@ -123,12 +121,10 @@
             link.click();
             document.body.removeChild(link);
           } else {
-            // Show error message
             errorMessage.style.display = "block";
           }
         })
-        .catch(error => {
-          // Show error message
+        .catch(() => {
           errorMessage.style.display = "block";
         });
     }
