@@ -6,129 +6,96 @@
   <title>ICEM Certificate Verification Portal</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
-    * {
+    body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+      background: linear-gradient(to right, #87CEEB, #1e3c72); /* sky blue to navy */
       font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
 
-    body {
-      background: linear-gradient(to right, #1c1c60, #3041a0);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
-      color: #ffffff;
+    .container {
+      text-align: center;
+      padding: 20px;
     }
 
     .card {
       background: rgba(255, 255, 255, 0.15);
-      border-radius: 12px;
+      border-radius: 15px;
       backdrop-filter: blur(15px);
-      padding: 30px;
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-      text-align: center;
-      max-width: 450px;
-      width: 100%;
+      padding: 40px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      max-width: 500px;
+      margin: auto;
+      color: #ffffff;
     }
 
-    .logo-container img {
-      max-height: 100px;
-      margin-bottom: 10px;
-    }
-
-    .logo-text {
-      font-size: 18px;
-      font-weight: 500;
-    }
-
-    .logo-subtext {
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    .logo-tagline {
-      font-size: 14px;
+    .logo-container {
       margin-bottom: 20px;
+    }
+
+    .logo {
+      max-width: 180px;
+      height: auto;
     }
 
     h1 {
       font-size: 24px;
-      font-weight: 600;
       margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 14px;
-      opacity: 0.9;
-      margin-bottom: 20px;
-    }
-
-    .btn {
-      background-color: #ffffff;
-      color: #1c1c60;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
       font-weight: 600;
-      margin: 10px 0;
-      width: 100%;
-      cursor: pointer;
-      transition: all 0.3s ease;
     }
 
-    .btn:hover {
-      background-color: #ffd700;
-      color: #000;
+    .tagline {
+      font-size: 16px;
+      margin-bottom: 25px;
+    }
+
+    .button-group .btn {
+      display: block;
+      margin: 12px auto;
+      background-color: #001f54;
+      color: white;
+      padding: 12px 25px;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+      width: 80%;
+    }
+
+    .button-group .btn:hover {
+      background-color: #003399;
     }
 
     footer {
+      margin-top: 30px;
       font-size: 12px;
-      color: #eee;
-      margin-top: 20px;
-    }
-
-    @media (max-width: 600px) {
-      .card {
-        padding: 20px;
-      }
-
-      h1 {
-        font-size: 22px;
-      }
-
-      .btn {
-        font-size: 14px;
-      }
+      color: #e0e0e0;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <div class="card">
+      <div class="logo-container">
+        <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo" class="logo"/>
+      </div>
+      <h1>Welcome to ICEM Certificate Verification Portal</h1>
+      <p class="tagline">Secure. Smart. Verified.</p>
 
-  <div class="card">
-    <div class="logo-container">
-      <img src="images/indira-logo.png" alt="ICEM Logo" />
-      <div class="logo-text">Shree Chanakya Education Society's</div>
-      <div class="logo-subtext">INDIRA COLLEGE OF ENGINEERING & MANAGEMENT</div>
-      <div class="logo-tagline">"Empowering Minds to Elevate Lives"</div>
+      <div class="button-group">
+        <a href="admin-login.html" class="btn">Admin Login</a>
+        <a href="verify-certificate.html" class="btn">Verify Certificate</a>
+        <a href="download-certificate.html" class="btn">Download Certificate</a>
+        <a href="contact.html" class="btn">Contact ICEM</a>
+      </div>
+      <footer>
+        <p>&copy; 2025. Indira College of Engineering and Management.<br> Developed by Gaurav Raju Nawale.</p>
+      </footer>
     </div>
-
-    <h1>Welcome to ICEM Certificate Verification Portal</h1>
-    <p>Secure. Smart. Verified.</p>
-
-    <a href="admin-login.html"><button class="btn">Admin Login</button></a>
-    <a href="verify.html"><button class="btn">Verify Certificate</button></a>
-    <a href="download.html"><button class="btn">Download Certificate</button></a>
-    <a href="contact.html"><button class="btn">Contact ICEM</button></a>
-
-    <footer>
-      © 2025 Indira College of Engineering and Management.<br/>
-      Developed by Gaurav Raju Nawale.
-    </footer>
   </div>
-
 </body>
 </html>
