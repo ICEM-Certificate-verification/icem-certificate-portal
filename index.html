@@ -14,22 +14,24 @@
     }
 
     body {
-      background: linear-gradient(to bottom right, #0f1c4d, #d0e7ff);
-      color: #ffffff;
+      background: linear-gradient(to right, #1c1c60, #3041a0);
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: center;
       padding: 40px 20px;
+      color: #ffffff;
     }
 
-    .logo-container {
-      background-color: rgba(255, 255, 255, 0.1);
-      padding: 20px 30px;
+    .card {
+      background: rgba(255, 255, 255, 0.15);
       border-radius: 12px;
-      margin-bottom: 30px;
+      backdrop-filter: blur(15px);
+      padding: 30px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
       text-align: center;
+      max-width: 450px;
+      width: 100%;
     }
 
     .logo-container img {
@@ -37,30 +39,43 @@
       margin-bottom: 10px;
     }
 
+    .logo-text {
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .logo-subtext {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .logo-tagline {
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
     h1 {
-      font-size: 28px;
+      font-size: 24px;
       font-weight: 600;
       margin-bottom: 10px;
-      text-align: center;
     }
 
     p {
-      font-size: 16px;
+      font-size: 14px;
       opacity: 0.9;
-      margin-bottom: 30px;
-      text-align: center;
+      margin-bottom: 20px;
     }
 
     .btn {
       background-color: #ffffff;
-      color: #0f1c4d;
+      color: #1c1c60;
       padding: 12px 20px;
       border: none;
       border-radius: 8px;
       font-size: 16px;
       font-weight: 600;
       margin: 10px 0;
-      width: 250px;
+      width: 100%;
       cursor: pointer;
       transition: all 0.3s ease;
     }
@@ -71,45 +86,49 @@
     }
 
     footer {
-      margin-top: auto;
-      padding: 20px;
-      text-align: center;
-      font-size: 14px;
-      color: #eeeeee;
+      font-size: 12px;
+      color: #eee;
+      margin-top: 20px;
     }
 
     @media (max-width: 600px) {
+      .card {
+        padding: 20px;
+      }
+
       h1 {
-        font-size: 24px;
+        font-size: 22px;
       }
 
       .btn {
-        width: 90%;
+        font-size: 14px;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="logo-container">
-    <img src="images/indira-logo.png" alt="ICEM Logo">
-    <div style="font-size: 18px; font-weight: 500;">Shree Chanakya Education Society's</div>
-    <div style="font-size: 20px; font-weight: bold;">INDIRA COLLEGE OF ENGINEERING & MANAGEMENT</div>
-    <div style="font-size: 14px;">"Empowering Minds to Elevate Lives"</div>
+  <div class="card">
+    <div class="logo-container">
+      <img src="images/indira-logo.png" alt="ICEM Logo" />
+      <div class="logo-text">Shree Chanakya Education Society's</div>
+      <div class="logo-subtext">INDIRA COLLEGE OF ENGINEERING & MANAGEMENT</div>
+      <div class="logo-tagline">"Empowering Minds to Elevate Lives"</div>
+    </div>
+
+    <h1>Welcome to ICEM Certificate Verification Portal</h1>
+    <p>Secure. Smart. Verified.</p>
+
+    <a href="admin-login.html"><button class="btn">Admin Login</button></a>
+    <a href="verify.html"><button class="btn">Verify Certificate</button></a>
+    <a href="download.html"><button class="btn">Download Certificate</button></a>
+    <a href="contact.html"><button class="btn">Contact ICEM</button></a>
+
+    <footer>
+      © 2025 Indira College of Engineering and Management.<br/>
+      Developed by Gaurav Raju Nawale.
+    </footer>
   </div>
-
-  <h1>Welcome to ICEM Certificate Verification Portal</h1>
-  <p>Secure. Smart. Verified.</p>
-
-  <a href="admin-login.html"><button class="btn">Admin Login</button></a>
-  <a href="verify.html"><button class="btn">Verify Certificate</button></a>
-  <a href="download.html"><button class="btn">Download Certificate</button></a>
-  <a href="contact.html"><button class="btn">Contact ICEM</button></a>
-
-  <footer>
-    © 2025. Indira College of Engineering and Management.<br/>
-    Developed by Gaurav Raju Nawale.
-  </footer>
 
 </body>
 </html>
