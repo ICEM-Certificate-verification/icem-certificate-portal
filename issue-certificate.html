@@ -29,9 +29,26 @@
       text-align: center;
     }
 
-    .logo-container img {
-      max-width: 160px;
+    .header {
+      position: relative;
+      width: 100%;
+      text-align: center;
       margin-bottom: 20px;
+    }
+
+    .logo-container img {
+      max-width: 220px; /* Increased logo size to match admin dashboard */
+      margin-bottom: 20px;
+    }
+
+    .menu-icon {
+      font-size: 28px; /* Increased font size for the menu icon */
+      cursor: pointer;
+      color: white;
+      position: absolute;
+      top: 25px;
+      right: 20px;
+      z-index: 999;
     }
 
     h2 {
@@ -72,13 +89,54 @@
       font-size: 12px;
       color: #e0e0e0;
     }
+
+    /* Dropdown menu styles */
+    .dropdown {
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 12px;
+      padding: 10px 0;
+      width: 250px; /* Adjusted width for larger menu */
+      display: none;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .dropdown a {
+      display: block;
+      color: white;
+      padding: 16px 20px; /* Adjusted padding to match admin dashboard */
+      text-decoration: none;
+      font-size: 18px; /* Adjusted font size for the menu */
+    }
+
+    .dropdown a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
   </style>
 </head>
 <body>
 
   <div class="card">
-    <div class="logo-container">
-      <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo" />
+    <div class="header">
+      <div class="logo-container">
+        <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo" />
+      </div>
+      <!-- Menu Icon on the right of the logo -->
+      <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    </div>
+
+    <!-- Dropdown Menu -->
+    <div class="dropdown" id="dropdown">
+      <a href="/issue-certificate">📝 Issue Certificate</a>
+      <a href="/bulk-upload">📥 Bulk Upload</a>
+      <a href="/manage-certificates">📁 Manage Certificates</a>
+      <a href="/view-queries">📬 View Queries</a>
+      <a href="/user-login">👤 User Login</a>
+      <a href="/">🚪 Logout</a>
     </div>
 
     <h2>Issue New Certificate</h2>
@@ -98,6 +156,22 @@
       Developed by Gaurav Raju Nawale.
     </footer>
   </div>
+
+  <script>
+    function toggleMenu() {
+      const dropdown = document.getElementById("dropdown");
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+
+    // Hide dropdown when clicking outside
+    document.addEventListener("click", function(event) {
+      const dropdown = document.getElementById("dropdown");
+      const menuIcon = document.querySelector(".menu-icon");
+      if (!dropdown.contains(event.target) && !menuIcon.contains(event.target)) {
+        dropdown.style.display = "none";
+      }
+    });
+  </script>
 
 </body>
 </html>
