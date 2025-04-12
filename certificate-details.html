@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Certificate Details - ICEM</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      color: #fff;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 30px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      text-align: center;
+      color: #ffe600;
+    }
+    .info {
+      margin: 15px 0;
+      font-size: 18px;
+    }
+    .label {
+      font-weight: bold;
+      color: #ffffff;
+    }
+    .value {
+      color: #e0e0e0;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      {% if data %}
+        <h1>Certificate Details</h1>
+        <div class="info"><span class="label">Name:</span> <span class="value">{{ data['Name'] }}</span></div>
+        <div class="info"><span class="label">PRN:</span> <span class="value">{{ data['PRN'] }}</span></div>
+        <div class="info"><span class="label">Branch:</span> <span class="value">{{ data['Branch'] }}</span></div>
+        <div class="info"><span class="label">Title:</span> <span class="value">{{ data['Title'] }}</span></div>
+        <div class="info"><span class="label">Achievement:</span> <span class="value">{{ data['Achievement'] }}</span></div>
+        <div class="info"><span class="label">Date:</span> <span class="value">{{ data['Date'] }}</span></div>
+        <a href="{{ url_for('static', filename='certificates/' + cert_id + '.pdf') }}" class="btn" target="_blank">📥 Download Certificate</a>
+      {% else %}
+        <h1>Certificate Not Found</h1>
+        <p style="text-align: center;">❌ The certificate ID you entered is not valid.</p>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>
