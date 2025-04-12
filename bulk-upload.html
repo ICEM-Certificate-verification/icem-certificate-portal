@@ -1,68 +1,208 @@
-@app.route('/bulk-upload', methods=['GET', 'POST'])
-def bulk_upload():
-    if request.method == 'POST':
-        file = request.files['excel']
-        if not file:
-            return render_template("bulk-upload.html", message="❌ No file selected.")
-        
-        df = pd.read_excel(file)
-        cert_ids = []
-        links = []
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bulk Upload | ICEM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #87CEEB, #1e3c72);
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
 
-        for i, row in df.iterrows():
-            name = row['Name']
-            prn = row['PRN']
-            branch = row['Branch']
-            date = str(row['Date'].date()) if hasattr(row['Date'], 'date') else str(row['Date'])
-            title = row['Title']
-            achievement = row['Achievement']
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      backdrop-filter: blur(15px);
+      padding: 40px 30px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      max-width: 500px;
+      width: 100%;
+      color: #ffffff;
+      text-align: center;
+      position: relative;
+    }
 
-            cert_id = f"ICEM2025LIB{str(abs(hash(name + prn)) % 1000).zfill(3)}"
-            cert_ids.append(cert_id)
-            cert_link = f"https://icem-certificate-verification.github.io/certificates/{cert_id}.pdf"
-            links.append(cert_link)
+    .logo-container {
+      margin-bottom: 20px;
+    }
 
-            # Generate QR
-            qr = qrcode.make(cert_link)
-            qr_path = f"{CERT_DIR}/{cert_id}_qr.png"
-            qr.save(qr_path)
+    .logo-container img {
+      max-width: 160px;
+    }
 
-            # Generate PDF
-            pdf = FPDF(orientation='L', unit='mm', format='A4')
-            pdf.add_page()
-            pdf.image("static/certificate-bg.png", x=0, y=0, w=297)
+    h2 {
+      margin-bottom: 25px;
+    }
 
-            pdf.set_font("Arial", 'B', 24)
-            pdf.set_text_color(255, 215, 0)
-            pdf.cell(0, 40, title, ln=True, align='C')
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background-color: #001f54;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      margin: 10px 0;
+      cursor: pointer;
+      transition: 0.3s ease;
+      text-decoration: none;
+    }
 
-            pdf.set_font("Arial", '', 18)
-            pdf.set_text_color(255, 255, 255)
-            pdf.cell(0, 20, "This certificate is awarded to", ln=True, align='C')
+    .btn:hover {
+      background-color: #003399;
+    }
 
-            pdf.set_font("Arial", 'B', 28)
-            pdf.cell(0, 20, name, ln=True, align='C')
+    footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #e0e0e0;
+    }
 
-            pdf.set_font("Arial", '', 16)
-            pdf.multi_cell(0, 10, f"In recognition of {achievement}\n\nBranch: {branch} | PRN: {prn} | Date: {date}", align='C')
+    /* Menu icon */
+    .menu-icon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 28px;
+      cursor: pointer;
+      color: white;
+      z-index: 999;
+    }
 
-            pdf.image(qr_path, x=125, y=160, w=40)
-            pdf.set_font("Arial", '', 12)
-            pdf.set_y(-20)
-            pdf.cell(0, 10, f"Verify this certificate at: {cert_link}", align='C')
+    /* Dropdown styles */
+    .dropdown {
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 12px;
+      padding: 10px 0;
+      width: 200px;
+      display: none;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      transition: opacity 0.3s ease-in-out;
+    }
 
-            pdf_path = f"{CERT_DIR}/{cert_id}.pdf"
-            pdf.output(pdf_path)
+    .dropdown a {
+      display: block;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 15px;
+    }
 
-        # Update and save Excel file
-        df['Certificate ID'] = cert_ids
-        df['Certificate Link'] = links
-        output_excel = os.path.join(CERT_DIR, "generated_certificates.xlsx")
-        df.to_excel(output_excel, index=False)
+    .dropdown a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
 
-        # Message with download link
-        msg = f"✅ {len(df)} certificates generated successfully!<br><br>"
-        msg += f"📄 <a href='/static/certificates/generated_certificates.xlsx' target='_blank' style='color:white;'>Download Excel Report</a>"
-        return render_template("bulk-upload.html", message=msg)
+    /* Description Box */
+    .description-box {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 30px;
+      backdrop-filter: blur(12px);
+      color: white;
+      font-size: 16px;
+      font-weight: 500;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+    }
 
-    return render_template("bulk-upload.html")
+    form {
+      margin-top: 20px;
+      color: #ffffff;
+    }
+
+    label {
+      font-size: 16px;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 16px;
+    }
+
+    input[type="submit"] {
+      background-color: #003399;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <!-- MENU icon -->
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+
+    <!-- Dropdown Menu -->
+    <div class="dropdown" id="dropdown">
+      <a href="/issue-certificate">📝 Issue Certificate</a>
+      <a href="/bulk-upload">📥 Bulk Upload</a>
+      <a href="/manage-certificates">📁 Manage Certificates</a>
+      <a href="/view-queries">📬 View Queries</a>
+      <a href="/user-login">👤 User Login</a>
+      <a href="/">🚪 Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="logo-container">
+      <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo">
+    </div>
+
+    <h2>Bulk Upload Certificates</h2>
+
+    <!-- Description Box -->
+    <div class="description-box">
+      <p>Use this page to upload multiple certificates at once through an Excel file. Ensure that the file follows the required format for smooth processing. After uploading, the system will generate and issue the certificates accordingly.</p>
+    </div>
+
+    <form action="/submit-bulk-upload" method="POST" enctype="multipart/form-data">
+      <label for="file">Upload Excel File:</label>
+      <input type="file" id="file" name="file" required>
+
+      <input type="submit" value="Upload">
+    </form>
+
+    <footer>
+      &copy; 2025 Indira College of Engineering and Management.<br />
+      Developed by Gaurav Raju Nawale.
+    </footer>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const dropdown = document.getElementById("dropdown");
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+
+    // Hide dropdown on outside click
+    document.addEventListener("click", function(event) {
+      const dropdown = document.getElementById("dropdown");
+      const menuIcon = document.querySelector(".menu-icon");
+      if (!dropdown.contains(event.target) && !menuIcon.contains(event.target)) {
+        dropdown.style.display = "none";
+      }
+    });
+  </script>
+
+</body>
+</html>
