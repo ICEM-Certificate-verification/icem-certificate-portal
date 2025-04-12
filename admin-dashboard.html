@@ -11,30 +11,69 @@
       padding: 0;
       background: linear-gradient(to right, #87CEEB, #1e3c72);
       font-family: 'Poppins', sans-serif;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.3);
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      min-height: 100vh;
+      padding: 12px 20px;
+      z-index: 1000;
+      color: white;
+    }
+
+    .logo {
+      max-height: 40px;
+    }
+
+    .menu-icon {
+      font-size: 26px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .menu {
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+      padding: 10px;
+      border-radius: 12px;
+      text-align: right;
+    }
+
+    .menu a {
+      display: block;
+      color: #fff;
+      padding: 10px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .menu a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
     }
 
     .card {
+      margin-top: 100px;
       background: rgba(255, 255, 255, 0.15);
       border-radius: 15px;
       backdrop-filter: blur(15px);
       padding: 40px 30px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
       max-width: 500px;
-      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
       color: #ffffff;
       text-align: center;
-    }
-
-    .logo-container {
-      margin-bottom: 20px;
-    }
-
-    .logo-container img {
-      max-width: 160px;
     }
 
     h2 {
@@ -70,23 +109,39 @@
 </head>
 <body>
 
-  <div class="card">
-    <div class="logo-container">
-      <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo">
+  <!-- Navbar with Hamburger Menu -->
+  <div class="navbar">
+    <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo" class="logo">
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    <div class="menu" id="menu">
+      <a href="/admin-dashboard">🏠 Dashboard</a>
+      <a href="/issue-certificate">📝 Issue Certificate</a>
+      <a href="/bulk-upload">📥 Bulk Upload</a>
+      <a href="/manage-certificates">📁 Manage Certificates</a>
+      <a href="/view-queries">📬 View Queries</a>
+      <a href="/">🚪 Logout</a>
     </div>
+  </div>
 
+  <!-- Main Admin Card -->
+  <div class="card">
     <h2>Welcome, Admin</h2>
-
     <a href="/issue-certificate" class="btn">📝 Issue New Certificate</a>
     <a href="/bulk-upload" class="btn">📥 Bulk Upload Certificates</a>
     <a href="/manage-certificates" class="btn">📁 Manage Certificates</a>
     <a href="/view-queries" class="btn">📬 View Contact Queries</a>
-
     <footer>
       &copy; 2025 Indira College of Engineering and Management.<br />
       Developed by Gaurav Raju Nawale.
     </footer>
   </div>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("menu");
+      menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+  </script>
 
 </body>
 </html>
