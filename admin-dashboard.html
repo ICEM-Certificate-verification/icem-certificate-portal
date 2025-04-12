@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Dashboard | ICEM</title>
+  <title>Issue Certificate | ICEM</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     body {
@@ -105,6 +105,33 @@
     .dropdown a:hover {
       background-color: rgba(255, 255, 255, 0.1);
     }
+
+    form {
+      margin-top: 20px;
+      color: #ffffff;
+    }
+
+    label {
+      font-size: 16px;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 16px;
+    }
+
+    input[type="submit"] {
+      background-color: #003399;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -128,12 +155,26 @@
       <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo">
     </div>
 
-    <h2>Welcome, Admin</h2>
+    <h2>Issue New Certificate</h2>
 
-    <a href="/issue-certificate" class="btn">📝 Issue New Certificate</a>
-    <a href="/bulk-upload" class="btn">📥 Bulk Upload Certificates</a>
-    <a href="/manage-certificates" class="btn">📁 Manage Certificates</a>
-    <a href="/view-queries" class="btn">📬 View Contact Queries</a>
+    <form action="/submit-certificate" method="POST">
+      <label for="name">Student Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="course">Course:</label>
+      <input type="text" id="course" name="course" required>
+
+      <label for="issue-date">Issue Date:</label>
+      <input type="date" id="issue-date" name="issue-date" required>
+
+      <label for="certificate-type">Certificate Type:</label>
+      <select id="certificate-type" name="certificate-type" required>
+        <option value="completion">Completion Certificate</option>
+        <option value="participation">Participation Certificate</option>
+      </select>
+
+      <input type="submit" value="Issue Certificate">
+    </form>
 
     <footer>
       &copy; 2025 Indira College of Engineering and Management.<br />
