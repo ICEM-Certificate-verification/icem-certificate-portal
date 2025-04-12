@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>View Queries | ICEM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #87CEEB, #1e3c72);
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      backdrop-filter: blur(15px);
+      padding: 40px 30px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      max-width: 600px;
+      width: 100%;
+      color: #ffffff;
+      text-align: center;
+      position: relative;
+    }
+
+    .logo-container img {
+      max-width: 180px; /* Increased logo size */
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      margin-bottom: 25px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: #001f54;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #003399;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #e0e0e0;
+    }
+
+    /* Menu icon */
+    .menu-icon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 28px;
+      cursor: pointer;
+      color: white;
+      z-index: 999;
+    }
+
+    /* Dropdown styles */
+    .dropdown {
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 12px;
+      padding: 10px 0;
+      width: 200px;
+      display: none;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .dropdown a {
+      display: block;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .dropdown a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <!-- MENU icon -->
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+
+    <!-- Dropdown Menu -->
+    <div class="dropdown" id="dropdown">
+      <a href="/issue-certificate">📝 Issue Certificate</a>
+      <a href="/bulk-upload">📥 Bulk Upload</a>
+      <a href="/manage-certificates">📁 Manage Certificates</a>
+      <a href="/view-queries">📬 View Queries</a>
+      <a href="/user-login">👤 User Login</a>
+      <a href="/">🚪 Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="logo-container">
+      <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo">
+    </div>
+
+    <h2>View Queries</h2>
+
+    <p>Here you can view and respond to certificate-related queries.</p>
+
+    <button>View Queries</button>
+
+    <footer>
+      &copy; 2025. Indira College of Engineering and Management.<br />
+      Developed by Gaurav Raju Nawale.
+    </footer>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const dropdown = document.getElementById("dropdown");
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+
+    // Hide dropdown on outside click
+    document.addEventListener("click", function(event) {
+      const dropdown = document.getElementById("dropdown");
+      const menuIcon = document.querySelector(".menu-icon");
+      if (!dropdown.contains(event.target) && !menuIcon.contains(event.target)) {
+        dropdown.style.display = "none";
+      }
+    });
+  </script>
+
+</body>
+</html>
