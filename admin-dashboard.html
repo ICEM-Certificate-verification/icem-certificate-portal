@@ -11,69 +11,31 @@
       padding: 0;
       background: linear-gradient(to right, #87CEEB, #1e3c72);
       font-family: 'Poppins', sans-serif;
-    }
-
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(0,0,0,0.3);
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      padding: 12px 20px;
-      z-index: 1000;
-      color: white;
-    }
-
-    .logo {
-      max-height: 40px;
-    }
-
-    .menu-icon {
-      font-size: 26px;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .menu {
-      display: none;
-      position: absolute;
-      top: 60px;
-      right: 20px;
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(8px);
-      padding: 10px;
-      border-radius: 12px;
-      text-align: right;
-    }
-
-    .menu a {
-      display: block;
-      color: #fff;
-      padding: 10px;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .menu a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
+      min-height: 100vh;
     }
 
     .card {
-      margin-top: 100px;
       background: rgba(255, 255, 255, 0.15);
       border-radius: 15px;
       backdrop-filter: blur(15px);
       padding: 40px 30px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
       max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
+      width: 100%;
       color: #ffffff;
       text-align: center;
+      position: relative;
+    }
+
+    .logo-container {
+      margin-bottom: 20px;
+    }
+
+    .logo-container img {
+      max-width: 160px;
     }
 
     h2 {
@@ -105,31 +67,74 @@
       font-size: 12px;
       color: #e0e0e0;
     }
+
+    /* Menu icon */
+    .menu-icon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 28px;
+      cursor: pointer;
+      color: white;
+      z-index: 999;
+    }
+
+    /* Dropdown styles */
+    .dropdown {
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 12px;
+      padding: 10px 0;
+      width: 200px;
+      display: none;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .dropdown a {
+      display: block;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .dropdown a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
   </style>
 </head>
 <body>
 
-  <!-- Navbar with Hamburger Menu -->
-  <div class="navbar">
-    <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo" class="logo">
+  <div class="card">
+    <!-- MENU icon -->
     <div class="menu-icon" onclick="toggleMenu()">☰</div>
-    <div class="menu" id="menu">
-      <a href="/admin-dashboard">🏠 Dashboard</a>
+
+    <!-- Dropdown Menu -->
+    <div class="dropdown" id="dropdown">
       <a href="/issue-certificate">📝 Issue Certificate</a>
       <a href="/bulk-upload">📥 Bulk Upload</a>
       <a href="/manage-certificates">📁 Manage Certificates</a>
       <a href="/view-queries">📬 View Queries</a>
+      <a href="/user-login">👤 User Login</a>
       <a href="/">🚪 Logout</a>
     </div>
-  </div>
 
-  <!-- Main Admin Card -->
-  <div class="card">
+    <!-- Main Content -->
+    <div class="logo-container">
+      <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo">
+    </div>
+
     <h2>Welcome, Admin</h2>
+
     <a href="/issue-certificate" class="btn">📝 Issue New Certificate</a>
     <a href="/bulk-upload" class="btn">📥 Bulk Upload Certificates</a>
     <a href="/manage-certificates" class="btn">📁 Manage Certificates</a>
     <a href="/view-queries" class="btn">📬 View Contact Queries</a>
+
     <footer>
       &copy; 2025 Indira College of Engineering and Management.<br />
       Developed by Gaurav Raju Nawale.
@@ -138,9 +143,18 @@
 
   <script>
     function toggleMenu() {
-      const menu = document.getElementById("menu");
-      menu.style.display = menu.style.display === "block" ? "none" : "block";
+      const dropdown = document.getElementById("dropdown");
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
     }
+
+    // Hide dropdown on outside click
+    document.addEventListener("click", function(event) {
+      const dropdown = document.getElementById("dropdown");
+      const menuIcon = document.querySelector(".menu-icon");
+      if (!dropdown.contains(event.target) && !menuIcon.contains(event.target)) {
+        dropdown.style.display = "none";
+      }
+    });
   </script>
 
 </body>
