@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Certificate Details | ICEM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      animation: backgroundShift 30s ease infinite;
+      background: linear-gradient(-45deg, #a1c4fd, #c2e9fb, #fcb69f, #ffecd2);
+      background-size: 600% 600%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    @keyframes backgroundShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .logo-container {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .logo-container img {
+      max-width: 320px;
+      width: 100%;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+      padding: 40px;
+      max-width: 600px;
+      width: 100%;
+      color: #333;
+      text-align: center;
+    }
+
+    .card h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      font-weight: 600;
+      color: #001f54;
+    }
+
+    .details {
+      text-align: left;
+      font-size: 18px;
+      line-height: 1.6;
+      margin-top: 10px;
+    }
+
+    .details strong {
+      color: #003399;
+    }
+
+    .btn-group {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      background-color: #001f54;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #003399;
+      transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .qr-img {
+      margin-top: 30px;
+    }
+
+    .qr-img img {
+      width: 150px;
+      height: 150px;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-container">
+    <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo">
+  </div>
+
+  <div class="card">
+    <h2>Certificate Details</h2>
+
+    <div class="details">
+      <p><strong>Name:</strong> {{ certificate.Name }}</p>
+      <p><strong>PRN:</strong> {{ certificate.PRN }}</p>
+      <p><strong>Branch:</strong> {{ certificate.Branch }}</p>
+      <p><strong>Organizing Department:</strong> {{ certificate['Organizing Department'] }}</p>
+      <p><strong>Date:</strong> {{ certificate.Date }}</p>
+      <p><strong>Description:</strong> {{ certificate.Description }}</p>
+    </div>
+
+    <div class="qr-img">
+      <img src="{{ url_for('static', filename=certificate['QR Code Path']) }}" alt="QR Code">
+    </div>
+
+    <div class="btn-group">
+      <a href="{{ url_for('static', filename=certificate['PDF Path']) }}" target="_blank" class="btn">🔽 Download Certificate</a>
+    </div>
+
+    <footer>
+      &copy; 2025. Indira College of Engineering and Management.<br />
+      Crafted by Gaurav Raju Nawale.
+    </footer>
+  </div>
+</body>
+</html>
