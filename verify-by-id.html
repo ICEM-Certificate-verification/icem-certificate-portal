@@ -8,13 +8,20 @@
   <style>
     body {
       margin: 0;
-      padding: 0;
-      background: linear-gradient(to right, #87CEEB, #1e3c72);
       font-family: 'Poppins', sans-serif;
+      animation: backgroundShift 30s ease infinite;
+      background: linear-gradient(-45deg, #a1c4fd, #c2e9fb, #fcb69f, #ffecd2);
+      background-size: 600% 600%;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+    }
+
+    @keyframes backgroundShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .card {
@@ -25,32 +32,45 @@
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
       max-width: 500px;
       width: 100%;
-      color: #ffffff;
+      color: #e5e5e5;
       text-align: center;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
     }
 
     .logo-container {
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
 
     .logo-container img {
-      max-width: 160px;
+      max-width: 200px;
     }
 
     h2 {
       font-size: 24px;
       margin-bottom: 20px;
+      color: #333;
     }
 
     input {
       width: 100%;
-      padding: 12px;
+      padding: 12px 15px;
       margin-bottom: 20px;
       border: none;
       border-radius: 10px;
       font-size: 16px;
       background: rgba(255, 255, 255, 0.9);
       color: #333;
+      transition: background 0.3s ease;
+    }
+
+    input:focus {
+      background: rgba(255, 255, 255, 1);
+      outline: none;
+      box-shadow: 0 0 5px rgba(0, 99, 153, 0.6);
     }
 
     .btn {
@@ -62,27 +82,20 @@
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
-      transition: 0.3s ease;
+      transition: all 0.3s ease;
       width: 100%;
     }
 
     .btn:hover {
       background-color: #003399;
-    }
-
-    .result {
-      margin-top: 20px;
-      font-size: 15px;
-      background-color: rgba(255,255,255,0.1);
-      padding: 15px;
-      border-radius: 10px;
-      display: none;
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
     footer {
       margin-top: 30px;
       font-size: 12px;
-      color: #e0e0e0;
+      color: #888888;
     }
 
     @media (max-width: 600px) {
@@ -92,6 +105,10 @@
 
       .btn {
         font-size: 14px;
+      }
+
+      .logo-container img {
+        max-width: 150px;
       }
     }
   </style>
@@ -105,41 +122,16 @@
 
     <h2>Verify Certificate by ID</h2>
 
-    <input type="text" id="certID" placeholder="Enter Certificate Number (e.g. ICEM2025LIB001)" />
-    <button class="btn" onclick="verify()">Verify</button>
-
-    <div class="result" id="resultBox"></div>
+    <form action="/certificate-details" method="get">
+      <input type="text" name="id" placeholder="Enter Certificate Number (e.g. ICEM2025LIB001)" required />
+      <button type="submit" class="btn">Verify</button>
+    </form>
 
     <footer>
       &copy; 2025 Indira College of Engineering and Management.<br />
       Developed by Gaurav Raju Nawale.
     </footer>
   </div>
-
-  <script>
-    function verify() {
-      const certID = document.getElementById("certID").value.trim();
-      const result = document.getElementById("resultBox");
-
-      if (certID === "ICEM2025LIB001") {
-        result.innerHTML = `
-          ✅ <strong>Certificate Verified</strong><br><br>
-          <b>Name:</b> Nawale Gaurav Raju<br>
-          <b>PRN:</b> CO24OB1121<br>
-          <b>Branch:</b> Computer Engineering<br>
-          <b>Date:</b> 10-Apr-2025<br>
-          <b>Title:</b> Certificate of Appreciation<br>
-          <b>Achievement:</b> Outstanding engagement with library resources and promotion of knowledge culture.
-        `;
-        result.style.display = "block";
-        result.style.color = "#ccffcc";
-      } else {
-        result.innerHTML = `❌ Certificate Not Found. Please contact the issuing authority.`;
-        result.style.display = "block";
-        result.style.color = "#ffcccc";
-      }
-    }
-  </script>
 
 </body>
 </html>
