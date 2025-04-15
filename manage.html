@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Certificates - ICEM</title>
+    
+    <!-- Link to Google Fonts and Font Awesome for better aesthetics -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    
+    <!-- External CSS for Animation and Theme -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    
+    <!-- Custom Animation CSS -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #4b6cb7, #182848);
+            color: #fff;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #f7c400;
+            animation: slideInFromTop 1s ease-out;
+        }
+
+        /* ICEM Logo styling */
+        .header-logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header-logo img {
+            max-width: 200px;
+            height: auto;
+        }
+
+        .card {
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .card-header {
+            background-color: #4b6cb7;
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .btn {
+            border-radius: 5px;
+            padding: 8px 15px;
+            font-size: 14px;
+            text-transform: uppercase;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary {
+            background-color: #f7c400;
+            color: #182848;
+        }
+
+        .btn-primary:hover {
+            background-color: #dba500;
+        }
+
+        .btn-info {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        .btn-info:hover {
+            background-color: #2980b9;
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .footer {
+            background-color: #182848;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        .search-input {
+            background-color: #f4f7fa;
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        /* Animation Effects */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInFromTop {
+            0% {
+                transform: translateY(-30px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ICEM Logo Centered -->
+        <div class="header-logo">
+            <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo">
+        </div>
+        
+        <h1>Manage Certificates</h1>
+        
+        <div class="card">
+            <div class="card-header">
+                <h3>Certificate Overview</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Total Certificates: <span class="badge badge-primary">{{ total_certificates }}</span></h5>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Certificates By Department</h5>
+                        <ul class="list-group">
+                            {% for dept, count in department_counts.items() %}
+                                <li class="list-group-item">{{ dept }}: <span class="badge badge-info">{{ count }}</span></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="card">
+            <div class="card-header">
+                <h3>Recent Uploads</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Certificate ID</th>
+                                <th>Name</th>
+                                <th>PRN</th>
+                                <th>Organizing Department</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if recent_uploads %}
+                                {% for cert in recent_uploads %}
+                                    <tr>
+                                        <td>{{ cert.cert_id }}</td>
+                                        <td>{{ cert.name }}</td>
+                                        <td>{{ cert.prn }}</td>
+                                        <td>{{ cert.organizing_dept }}</td>
+                                        <td>{{ cert.date }}</td>
+                                        <td>
+                                            <a href="{{ url_for('download_certificate', cert_id=cert.cert_id) }}" class="btn btn-primary btn-sm">Download</a>
+                                            <a href="{{ url_for('verify_by_id', cert_id=cert.cert_id) }}" class="btn btn-info btn-sm">Verify</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="6" class="text-center">No recent certificates found.</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="card">
+            <div class="card-header">
+                <h3>Certificate Search</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('manage_certificates') }}">
+                    <div class="form-group">
+                        <label for="search">Search by PRN or Name</label>
+                        <input type="text" class="search-input" name="search" id="search" value="{{ query }}" placeholder="Enter PRN or Name">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+                
+                {% if search_results %}
+                    <hr>
+                    <h5>Search Results</h5>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Certificate ID</th>
+                                <th>Name</th>
+                                <th>PRN</th>
+                                <th>Organizing Department</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for cert in search_results %}
+                                <tr>
+                                    <td>{{ cert.cert_id }}</td>
+                                    <td>{{ cert.name }}</td>
+                                    <td>{{ cert.prn }}</td>
+                                    <td>{{ cert.organizing_dept }}</td>
+                                    <td>{{ cert.date }}</td>
+                                    <td>
+                                        <a href="{{ url_for('download_certificate', cert_id=cert.cert_id) }}" class="btn btn-primary btn-sm">Download</a>
+                                        <a href="{{ url_for('verify_by_id', cert_id=cert.cert_id) }}" class="btn btn-info btn-sm">Verify</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Indira College of Engineering and Management. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
