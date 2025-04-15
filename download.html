@@ -8,39 +8,57 @@
   <style>
     body {
       margin: 0;
-      padding: 0;
-      background: linear-gradient(to right, #87CEEB, #1e3c72);
       font-family: 'Poppins', sans-serif;
+      animation: backgroundShift 30s ease infinite;
+      background: linear-gradient(-45deg, #a1c4fd, #c2e9fb, #fcb69f, #ffecd2);
+      background-size: 600% 600%;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      text-align: center;
+    }
+
+    @keyframes backgroundShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .card {
       background: rgba(255, 255, 255, 0.15);
       border-radius: 15px;
       backdrop-filter: blur(15px);
-      padding: 40px 20px;
+      padding: 40px 30px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
       max-width: 500px;
       width: 100%;
-      color: #ffffff;
+      color: #e5e5e5;
+      text-align: center;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .logo-container {
+      margin-bottom: 25px;
     }
 
     .logo-container img {
-      max-width: 160px;
-      margin-bottom: 10px;
+      max-width: 250px;
     }
 
     h2 {
-      margin: 10px 0 20px;
+      margin-bottom: 25px;
+      font-size: 24px;
+      font-weight: 600;
+      color: #333;
     }
 
     input {
-      width: 80%;
-      padding: 12px;
+      width: 100%;
+      padding: 12px 15px;
       margin-bottom: 20px;
       border: none;
       border-radius: 10px;
@@ -49,33 +67,42 @@
       color: #333;
     }
 
+    input:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 1);
+      box-shadow: 0 0 5px rgba(0, 99, 153, 0.6);
+    }
+
     .btn {
       background-color: #001f54;
       color: white;
-      padding: 12px 20px;
+      padding: 12px;
       border: none;
       border-radius: 10px;
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
+      width: 100%;
       transition: 0.3s ease;
     }
 
     .btn:hover {
       background-color: #003399;
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
     .error-message {
-      color: #ffcccc;
-      margin-top: 15px;
-      font-weight: 500;
+      color: #ffbaba;
+      font-size: 14px;
+      margin-top: 10px;
       display: none;
     }
 
     footer {
       margin-top: 30px;
       font-size: 12px;
-      color: #e0e0e0;
+      color: #888888;
     }
   </style>
 </head>
@@ -89,7 +116,6 @@
     <h2>Download Your Certificate</h2>
 
     <input type="text" id="certID" placeholder="Enter Certificate ID (e.g., ICEM2025LIB001)" />
-    <br/>
     <button class="btn" onclick="downloadCertificate()">Download</button>
 
     <div class="error-message" id="error-message">
@@ -97,7 +123,7 @@
     </div>
 
     <footer>
-      &copy; 2025 Indira College of Engineering and Management.<br />
+      &copy; 2025. Indira College of Engineering and Management.<br />
       Developed by Gaurav Raju Nawale.
     </footer>
   </div>
@@ -108,7 +134,6 @@
       const errorMessage = document.getElementById("error-message");
       errorMessage.style.display = "none";
 
-      // In production, this path should be served via Flask (e.g. /certificates/<certID>.pdf)
       const certificateURL = `/static/certificates/${certID}.pdf`;
 
       fetch(certificateURL, { method: 'HEAD' })
