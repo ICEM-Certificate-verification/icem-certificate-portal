@@ -1,177 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Issue New Certificate | ICEM</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(to right, #87CEEB, #1e3c72);
-      font-family: 'Poppins', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue New Certificate | ICEM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(-45deg, #a1c4fd, #c2e9fb, #fcb69f, #ffecd2);
+            background-size: 600% 600%;
+            font-family: 'Poppins', sans-serif;
+            animation: backgroundShift 30s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-    .card {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 15px;
-      backdrop-filter: blur(15px);
-      padding: 40px 30px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-      max-width: 600px;
-      width: 100%;
-      color: #ffffff;
-      text-align: center;
-    }
+        @keyframes backgroundShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-    .header {
-      position: relative;
-      width: 100%;
-      text-align: center;
-      margin-bottom: 20px;
-    }
+        .card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            backdrop-filter: blur(15px);
+            padding: 40px 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+            max-width: 600px;
+            width: 100%;
+            color: #ffffff;
+            text-align: center;
+        }
 
-    .logo-container img {
-      max-width: 220px; /* Increased logo size to match admin dashboard */
-      margin-bottom: 20px;
-    }
+        .header {
+            position: relative;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-    .menu-icon {
-      font-size: 28px; /* Increased font size for the menu icon */
-      cursor: pointer;
-      color: white;
-      position: absolute;
-      top: 25px;
-      right: 20px;
-      z-index: 999;
-    }
+        .logo-container img {
+            max-width: 250px; /* Increased size of the logo */
+            height: auto;
+            margin-bottom: 20px;
+        }
 
-    h2 {
-      margin-bottom: 25px;
-    }
+        h2 {
+            margin-bottom: 25px;
+            font-size: 32px;
+            font-weight: 600;
+        }
 
-    input, textarea, select {
-      width: 100%;
-      padding: 12px 15px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      background: rgba(255, 255, 255, 0.9);
-      color: #333;
-    }
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            transition: all 0.3s ease;
+        }
 
-    button {
-      width: 100%;
-      padding: 14px;
-      background-color: #001f54;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 15px;
-      transition: 0.3s ease;
-    }
+        input:focus, textarea:focus, select:focus {
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 0 8px rgba(0, 81, 155, 0.7);
+            border: 1px solid #0066cc;
+        }
 
-    button:hover {
-      background-color: #003399;
-    }
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #001f54;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.3s ease;
+        }
 
-    footer {
-      margin-top: 30px;
-      font-size: 12px;
-      color: #e0e0e0;
-    }
+        button:hover {
+            background-color: #003399;
+        }
 
-    /* Dropdown menu styles */
-    .dropdown {
-      position: absolute;
-      top: 60px;
-      right: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(12px);
-      border-radius: 12px;
-      padding: 10px 0;
-      width: 250px; /* Adjusted width for larger menu */
-      display: none;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-      transition: opacity 0.3s ease-in-out;
-    }
+        footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #e0e0e0;
+        }
 
-    .dropdown a {
-      display: block;
-      color: white;
-      padding: 16px 20px; /* Adjusted padding to match admin dashboard */
-      text-decoration: none;
-      font-size: 18px; /* Adjusted font size for the menu */
-    }
+        select {
+            background-color: #fff;
+            color: #333;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid #1e3c72;
+            margin-top: 10px;
+            transition: all 0.3s ease-in-out;
+        }
 
-    .dropdown a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-  </style>
+        select:hover {
+            border-color: #0066cc;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #0066cc;
+            box-shadow: 0 0 10px rgba(0, 102, 204, 0.6);
+        }
+
+        option {
+            background-color: #f0f0f0;
+            padding: 10px;
+        }
+
+        option:hover {
+            background-color: #ddd;
+        }
+
+    </style>
 </head>
 <body>
 
-  <div class="card">
-    <div class="header">
-      <div class="logo-container">
-        <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo" />
-      </div>
-      <!-- Menu Icon on the right of the logo -->
-      <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    <div class="card">
+        <div class="header">
+            <div class="logo-container">
+                <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo"/>
+            </div>
+        </div>
+
+        <h2>Issue New Certificate</h2>
+
+        <form action="/generate-certificate" method="POST">
+            <input type="text" name="name" placeholder="Full Name" required />
+            <input type="text" name="prn" placeholder="PRN (e.g. CO24OB1121)" required />
+            <input type="text" name="branch" placeholder="Branch (e.g. Computer Engineering)" required />
+            <input type="date" name="date" required />
+            <input type="text" name="title" placeholder="Certificate Title" required />
+            <textarea name="achievement" placeholder="Achievement / Description" rows="4" required></textarea>
+            
+            <!-- Organizing Department Dropdown -->
+            <select name="organizing_department" required>
+                <option value="" disabled selected>Select Organizing Department</option>
+                <option value="Computer Department">Computer Department</option>
+                <option value="Mechanical Department">Mechanical Department</option>
+                <option value="AI & DS Department">AI & DS Department</option>
+                <option value="Civil Department">Civil Department</option>
+                <option value="Information Technology Department">Information Technology Department</option>
+                <option value="First Year Engineering Department">First Year Engineering Department</option>
+                <option value="BBA Department">BBA Department</option>
+                <option value="MBA Department">MBA Department</option>
+                <option value="BCA Department">BCA Department</option>
+                <option value="MCA Department">MCA Department</option>
+                <option value="Library Department">Library Department</option>
+                <option value="General Department">General Department</option>
+            </select>
+
+            <button type="submit">Generate Certificate</button>
+        </form>
+
+        <footer>
+            &copy; 2025. Indira College of Engineering and Management.<br />
+            Developed by Gaurav Raju Nawale.
+        </footer>
     </div>
-
-    <!-- Dropdown Menu -->
-    <div class="dropdown" id="dropdown">
-      <a href="/issue-certificate">📝 Issue Certificate</a>
-      <a href="/bulk-upload">📥 Bulk Upload</a>
-      <a href="/manage-certificates">📁 Manage Certificates</a>
-      <a href="/view-queries">📬 View Queries</a>
-      <a href="/user-login">👤 User Login</a>
-      <a href="/">🚪 Logout</a>
-    </div>
-
-    <h2>Issue New Certificate</h2>
-
-    <form action="/generate-certificate" method="POST">
-      <input type="text" name="name" placeholder="Full Name" required />
-      <input type="text" name="prn" placeholder="PRN (e.g. CO24OB1121)" required />
-      <input type="text" name="branch" placeholder="Branch (e.g. Computer Engineering)" required />
-      <input type="date" name="date" required />
-      <input type="text" name="title" placeholder="Certificate Title" required />
-      <textarea name="achievement" placeholder="Achievement / Description" rows="4" required></textarea>
-      <button type="submit">Generate Certificate</button>
-    </form>
-
-    <footer>
-      &copy; 2025. Indira College of Engineering and Management.<br />
-      Developed by Gaurav Raju Nawale.
-    </footer>
-  </div>
-
-  <script>
-    function toggleMenu() {
-      const dropdown = document.getElementById("dropdown");
-      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-    }
-
-    // Hide dropdown when clicking outside
-    document.addEventListener("click", function(event) {
-      const dropdown = document.getElementById("dropdown");
-      const menuIcon = document.querySelector(".menu-icon");
-      if (!dropdown.contains(event.target) && !menuIcon.contains(event.target)) {
-        dropdown.style.display = "none";
-      }
-    });
-  </script>
 
 </body>
 </html>
