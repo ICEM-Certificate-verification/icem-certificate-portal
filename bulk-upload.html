@@ -1,208 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bulk Upload | ICEM</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(to right, #87CEEB, #1e3c72);
-      font-family: 'Poppins', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
+    <meta charset="UTF-8">
+    <title>Bulk Upload - ICEM Certificate Portal</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            animation: backgroundShift 30s ease infinite;
+            background: linear-gradient(-45deg, #a1c4fd, #c2e9fb, #fcb69f, #ffecd2);
+            background-size: 600% 600%;
+        }
 
-    .card {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 15px;
-      backdrop-filter: blur(15px);
-      padding: 40px 30px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-      max-width: 500px;
-      width: 100%;
-      color: #ffffff;
-      text-align: center;
-      position: relative;
-    }
+        @keyframes backgroundShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-    .logo-container {
-      margin-bottom: 20px;
-    }
+        @keyframes pulseSelect {
+            0% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.5); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 123, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0); }
+        }
 
-    .logo-container img {
-      max-width: 160px;
-    }
+        header {
+            text-align: center;
+            padding: 30px 20px 10px;
+        }
 
-    h2 {
-      margin-bottom: 25px;
-    }
+        header img {
+            max-width: 420px;
+            height: auto;
+        }
 
-    .btn {
-      display: block;
-      width: 100%;
-      padding: 14px;
-      background-color: #001f54;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: 600;
-      margin: 10px 0;
-      cursor: pointer;
-      transition: 0.3s ease;
-      text-decoration: none;
-    }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
 
-    .btn:hover {
-      background-color: #003399;
-    }
+        h1 {
+            font-size: 30px;
+            margin-bottom: 20px;
+            color: #333;
+        }
 
-    footer {
-      margin-top: 30px;
-      font-size: 12px;
-      color: #e0e0e0;
-    }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
 
-    /* Menu icon */
-    .menu-icon {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      font-size: 28px;
-      cursor: pointer;
-      color: white;
-      z-index: 999;
-    }
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding: 14px 18px;
+            font-size: 18px;
+            border: 2px solid #007BFF;
+            border-radius: 12px;
+            background: linear-gradient(to right, #e0f7ff, #fff);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 18px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
 
-    /* Dropdown styles */
-    .dropdown {
-      position: absolute;
-      top: 60px;
-      right: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(12px);
-      border-radius: 12px;
-      padding: 10px 0;
-      width: 200px;
-      display: none;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      transition: opacity 0.3s ease-in-out;
-    }
+        select:focus {
+            outline: none;
+            border-color: #0056b3;
+            background: linear-gradient(to right, #dbeafe, #f0f9ff);
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+            transform: scale(1.03);
+        }
 
-    .dropdown a {
-      display: block;
-      color: white;
-      padding: 10px 20px;
-      text-decoration: none;
-      font-size: 15px;
-    }
+        select:hover {
+            animation: pulseSelect 1.2s infinite;
+        }
 
-    .dropdown a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
+        input[type="file"] {
+            padding: 14px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            transition: border-color 0.3s;
+            max-width: 400px;
+            margin: 0 auto;
+        }
 
-    /* Description Box */
-    .description-box {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 10px;
-      padding: 15px;
-      margin-bottom: 30px;
-      backdrop-filter: blur(12px);
-      color: white;
-      font-size: 16px;
-      font-weight: 500;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
-    }
+        input[type="file"]:hover {
+            border-color: #007BFF;
+        }
 
-    form {
-      margin-top: 20px;
-      color: #ffffff;
-    }
+        .btn {
+            padding: 14px 28px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-    label {
-      font-size: 16px;
-      display: block;
-      margin-bottom: 8px;
-    }
+        .btn:hover {
+            background-color: #0056b3;
+        }
 
-    input[type="file"] {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      border: 1px solid #ddd;
-      background-color: rgba(255, 255, 255, 0.2);
-      color: white;
-      font-size: 16px;
-    }
+        .sample-download {
+            margin-top: 10px;
+            font-size: 16px;
+            text-align: center;
+        }
 
-    input[type="submit"] {
-      background-color: #003399;
-      cursor: pointer;
-    }
-  </style>
+        .sample-download a {
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .sample-download a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        footer span {
+            font-weight: bold;
+        }
+
+        .emoji {
+            font-size: 20px;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo">
+    </header>
 
-  <div class="card">
-    <!-- MENU icon -->
-    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    <div class="container">
+        <h1>Bulk Certificate Upload</h1>
+        <form method="post" action="/bulk_upload" enctype="multipart/form-data">
+            <select name="organizing_department" required>
+                <option value="" disabled selected>Select Organizing Department</option>
+                <option value="Library Department">Library Department</option>
+                <option value="Computer Department">Computer Department</option>
+                <option value="Information Technology Department">Information Technology Department</option>
+                <option value="Civil Department">Civil Department</option>
+                <option value="Mechanical Department">Mechanical Department</option>
+                <option value="AI & DS Department">AI & DS Department</option>
+                <option value="First Year Engineering Department">First Year Engineering Department</option>
+                <option value="BBA Department">BBA Department</option>
+                <option value="MBA Department">MBA Department</option>
+                <option value="BCA Department">BCA Department</option>
+                <option value="MCA Department">MCA Department</option>
+                <option value="General">General</option>
+            </select>
 
-    <!-- Dropdown Menu -->
-    <div class="dropdown" id="dropdown">
-      <a href="/issue-certificate">📝 Issue Certificate</a>
-      <a href="/bulk-upload">📥 Bulk Upload</a>
-      <a href="/manage-certificates">📁 Manage Certificates</a>
-      <a href="/view-queries">📬 View Queries</a>
-      <a href="/user-login">👤 User Login</a>
-      <a href="/">🚪 Logout</a>
+            <input type="file" name="excel_file" accept=".xlsx, .xls" required>
+
+            <button type="submit" class="btn">Upload Certificates</button>
+        </form>
+
+        <div class="sample-download">
+            📥 <a href="/download_sample_excel">Download Sample Excel File</a>
+        </div>
     </div>
-
-    <!-- Main Content -->
-    <div class="logo-container">
-      <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo">
-    </div>
-
-    <h2>Bulk Upload Certificates</h2>
-
-    <!-- Description Box -->
-    <div class="description-box">
-      <p>Use this page to upload multiple certificates at once through an Excel file. Ensure that the file follows the required format for smooth processing. After uploading, the system will generate and issue the certificates accordingly.</p>
-    </div>
-
-    <form action="/submit-bulk-upload" method="POST" enctype="multipart/form-data">
-      <label for="file">Upload Excel File:</label>
-      <input type="file" id="file" name="file" required>
-
-      <input type="submit" value="Upload">
-    </form>
 
     <footer>
-      &copy; 2025 Indira College of Engineering and Management.<br />
-      Developed by Gaurav Raju Nawale.
+        <p class="emoji">🔧 Developed by <span>Gaurav Raju Nawale</span> with ❤️ | ICEM Certificate Portal</p>
     </footer>
-  </div>
-
-  <script>
-    function toggleMenu() {
-      const dropdown = document.getElementById("dropdown");
-      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-    }
-
-    // Hide dropdown on outside click
-    document.addEventListener("click", function(event) {
-      const dropdown = document.getElementById("dropdown");
-      const menuIcon = document.querySelector(".menu-icon");
-      if (!dropdown.contains(event.target) && !menuIcon.contains(event.target)) {
-        dropdown.style.display = "none";
-      }
-    });
-  </script>
-
 </body>
 </html>
