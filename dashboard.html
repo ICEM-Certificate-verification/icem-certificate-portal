@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - ICEM Certificate Portal</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            animation: backgroundShift 30s ease infinite;
+            background: linear-gradient(-45deg, #a1c4fd, #c2e9fb, #fcb69f, #ffecd2);
+            background-size: 600% 600%;
+        }
+
+        @keyframes backgroundShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px 20px;
+        }
+
+        header img {
+            max-width: 380px;
+            height: auto;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            padding: 30px 20px;
+        }
+
+        .nav-btn {
+            padding: 18px 35px;
+            font-size: 20px;
+            border: none;
+            border-radius: 25px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: all 0.3s ease-in-out;
+            text-decoration: none;
+            color: #000;
+            display: inline-block;
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.05);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .welcome-box {
+            background: rgba(255, 255, 255, 0.75);
+            padding: 50px 70px;
+            border-radius: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .welcome-box h1 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .welcome-box p {
+            font-size: 20px;
+            color: #555;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        footer span {
+            font-weight: bold;
+        }
+
+        .emoji {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo">
+    </header>
+
+    <nav>
+        <a href="/manage" class="nav-btn">📁 Manage Certificates</a> <!-- Changed the link to 'manage.html' -->
+        <a href="/bulk-upload" class="nav-btn">📤 Bulk Upload</a>
+        <a href="/issue-certificate" class="nav-btn">🎓 Generate Certificate</a>
+        <a href="/logout" class="nav-btn">🔒 Logout</a>
+    </nav>
+
+    <main>
+        <div class="welcome-box">
+            <h1>Welcome to the ICEM Admin Dashboard</h1>
+            <p>Manage certificates, student queries, and more with ease and efficiency.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p class="emoji">🔧 Developed by <span>Gaurav Raju Nawale</span> with ❤️ | ICEM Certificate Portal</p>
+    </footer>
+</body>
+</html>
