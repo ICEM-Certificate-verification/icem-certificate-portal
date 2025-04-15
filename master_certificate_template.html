@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ICEM Master Certificate</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .certificate {
+      width: 1123px;  /* A4 Landscape: 1123px */
+      height: 794px;  /* A4 Landscape: 794px */
+      position: relative;
+      background: url("{{ url_for('static', filename='images/certificate_bg.png') }}") no-repeat center center;
+      background-size: cover;
+      box-shadow: 0 0 25px rgba(0,0,0,0.2);
+    }
+
+    .content {
+      position: absolute;
+      top: 100px;
+      left: 80px;
+      right: 80px;
+      bottom: 80px;
+      text-align: center;
+      color: gold;
+    }
+
+    .content .logo {
+      margin-bottom: 10px;
+    }
+
+    .content .logo img {
+      height: 70px;
+    }
+
+    .content h1 {
+      font-size: 28px;
+      color: royalblue;
+      margin: 0;
+    }
+
+    .content h2 {
+      font-size: 22px;
+      font-weight: normal;
+      color: royalblue;
+      margin-top: 5px;
+    }
+
+    .title {
+      font-size: 32px;
+      margin: 30px 0 10px;
+      font-weight: bold;
+      color: gold;
+    }
+
+    .recipient {
+      font-size: 26px;
+      font-weight: bold;
+      margin: 10px 0;
+      color: gold;
+    }
+
+    .text {
+      font-size: 18px;
+      line-height: 1.6;
+      margin: 20px auto;
+      color: #fffbe8;
+      width: 85%;
+    }
+
+    .info {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #fffbe8;
+    }
+
+    .signatures {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 50px;
+      padding: 0 80px;
+      color: white;
+      font-size: 16px;
+    }
+
+    .signatures div {
+      width: 30%;
+      text-align: center;
+    }
+
+    .signatures p {
+      margin-top: 50px;
+      border-top: 1px solid gold;
+      padding-top: 5px;
+      font-weight: bold;
+    }
+
+    .qr {
+      position: absolute;
+      bottom: 40px;
+      left: 0;
+      right: 0;
+      text-align: center;
+    }
+
+    #qrcode {
+      margin: auto;
+    }
+
+    .qr small {
+      display: block;
+      color: white;
+      margin-top: 6px;
+    }
+
+    .footer-id {
+      position: absolute;
+      bottom: 30px;
+      left: 80px;
+      color: white;
+      font-size: 14px;
+    }
+
+    #downloadBtn {
+      margin: 30px;
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #002147;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    #downloadBtn:hover {
+      background-color: #003366;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="certificate" id="certificate">
+    <div class="content">
+      <div class="logo">
+        <img src="{{ url_for('static', filename='images/ICEM-Logo.png') }}" alt="ICEM Logo">
+      </div>
+      <h1>Shree Chanakya Education Society’s</h1>
+      <h2>Indira College of Engineering and Management, Pune</h2>
+
+      <div class="title">Certificate of Appreciation</div>
+      <div class="recipient">NAWALE GAURAV RAJU</div>
+      <div class="text">
+        In recognition of outstanding dedication to library engagement and<br />
+        exceptional commitment to utilizing library resources and promoting a culture of learning and knowledge enhancement.
+      </div>
+      <div class="info">
+        Branch: Computer Engineering &nbsp;&nbsp;&nbsp; PRN: CO24OB1121<br />
+        Date: 10-Apr-2025
+      </div>
+
+      <div class="signatures">
+        <div>
+          <p>Prof. ABC<br>Head Librarian</p> <!-- HOD Name will be dynamically updated here based on department -->
+        </div>
+        <div>
+          <p>Dr. XYZ<br>Principal</p> <!-- Principal Name -->
+        </div>
+        <div>
+          <p>Prof. DEF<br>Issuer</p> <!-- Issuer Name -->
+        </div>
+      </div>
+
+      <div class="qr">
+        <div id="qrcode"></div>
+        <small>Scan to verify this certificate online</small>
+      </div>
+
+      <div class="footer-id">Certificate ID: ICEM2025LIB001</div>
+    </div>
+  </div>
+
+  <button id="downloadBtn" onclick="downloadPDF()">⬇️ Download Certificate (PDF)</button>
+
+  <script>
+    new QRCode(document.getElementById("qrcode"), {
+      text: "https://icem-certificate-verification.github.io/certificate-verification/verify.html?id=ICEM2025LIB001",
+      width: 80,
+      height: 80
+    });
+
+    function downloadPDF() {
+      const element = document.getElementById("certificate");
+      html2pdf().from(element).set({
+        margin: 0,
+        filename: "ICEM_Certificate_Gaurav_Nawale.pdf",
+        html2canvas: { scale: 2 },
+        jsPDF: { orientation: "landscape", unit: "px", format: [1123, 794] }
+      }).save();
+    }
+  </script>
+
+</body>
+</html>

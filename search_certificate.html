@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Certificate - ICEM Admin</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            animation: backgroundShift 30s ease infinite;
+            background: linear-gradient(-45deg, #a1c4fd, #c2e9fb, #fcb69f, #ffecd2);
+            background-size: 600% 600%;
+            text-align: center;
+        }
+
+        @keyframes backgroundShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px 20px;
+        }
+
+        header img {
+            max-width: 380px;
+            height: auto;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            padding: 30px 20px;
+        }
+
+        .nav-btn {
+            padding: 18px 35px;
+            font-size: 20px;
+            border: none;
+            border-radius: 25px;
+            background-color: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.05);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        .top-box {
+            background-color: white;
+            padding: 35px 60px;
+            margin: 30px auto;
+            border-radius: 20px;
+            width: 600px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .search-box {
+            background-color: white;
+            padding: 35px 60px;
+            margin: 30px auto;
+            border-radius: 20px;
+            width: 600px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        input[type="text"] {
+            width: 60%;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-top: 15px;
+        }
+
+        button {
+            padding: 12px 25px;
+            background-color: #ffd700;
+            border: none;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        table {
+            margin: 40px auto;
+            border-collapse: collapse;
+            width: 90%;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        footer span {
+            font-weight: bold;
+        }
+
+        .emoji {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo">
+    </header>
+
+    <nav>
+        <button class="nav-btn">📁 Manage Certificates</button>
+        <button class="nav-btn">📤 Bulk Upload</button>
+        <button class="nav-btn">📨 View Queries</button>
+        <button class="nav-btn">🎓 Generate Certificate</button>
+        <button class="nav-btn">🔒 Logout</button>
+    </nav>
+
+    <div class="top-box">
+        <h3>Welcome to the ICEM Admin Dashboard</h3>
+        <p>Manage certificates, student queries, and more with ease and efficiency.</p>
+    </div>
+
+    <div class="search-box">
+        <h4>🔍 Search Your Certificate</h4>
+        <form method="POST" action="/search-certificate">
+            <input type="text" name="query" placeholder="Enter PRN or Name" required><br>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    {% if results %}
+        <h3>Search Results:</h3>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>PRN</th>
+                <th>Branch</th>
+                <th>Organizing Dept</th>
+                <th>Date</th>
+                <th>Download</th>
+            </tr>
+            {% for cert in results %}
+            <tr>
+                <td>{{ cert['Name'] }}</td>
+                <td>{{ cert['PRN'] }}</td>
+                <td>{{ cert['Branch'] }}</td>
+                <td>{{ cert['Organizing Department'] }}</td>
+                <td>{{ cert['Date'] }}</td>
+                <td><a href="{{ url_for('static', filename=cert['PDF Path']) }}" target="_blank">Download PDF</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% elif query %}
+        <p>No certificate found for "<strong>{{ query }}</strong>".</p>
+    {% endif %}
+
+    <footer>
+        <p class="emoji">🔧 Developed by <span>Gaurav Raju Nawale</span> with ❤️ | ICEM Certificate Portal</p>
+    </footer>
+
+</body>
+</html>
