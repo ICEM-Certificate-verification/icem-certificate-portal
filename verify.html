@@ -3,82 +3,106 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Certificate Verification | ICEM</title>
+  <title>ICEM Certificate Verification</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     body {
       margin: 0;
-      padding: 0;
-      background: linear-gradient(to right, #87CEEB, #1e3c72);
       font-family: 'Poppins', sans-serif;
+      animation: backgroundShift 30s ease infinite;
+      background: linear-gradient(-45deg, #a1c4fd, #c2e9fb, #fcb69f, #ffecd2);
+      background-size: 600% 600%;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      color: #fff;
-      text-align: center;
+    }
+
+    @keyframes backgroundShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .card {
       background: rgba(255, 255, 255, 0.15);
-      padding: 40px;
       border-radius: 15px;
-      max-width: 600px;
-      width: 90%;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(15px);
+      padding: 40px 30px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      max-width: 500px;
+      width: 100%;
+      color: #333;
+      text-align: center;
+      transition: all 0.3s ease-in-out;
     }
 
-    .logo {
-      max-width: 150px;
-      margin-bottom: 20px;
+    .card:hover {
+      transform: scale(1.03);
     }
 
-    .verified {
-      color: #90ee90;
-      font-weight: bold;
-      font-size: 18px;
+    .logo-container {
+      margin-bottom: 30px;
+    }
+
+    .logo-container img {
+      max-width: 200px;
+    }
+
+    h2 {
       margin-bottom: 15px;
+      font-size: 24px;
+      font-weight: 600;
+      color: #001f54;
     }
 
-    .not-found {
-      color: #ffbaba;
-      font-weight: bold;
-      font-size: 18px;
-      margin-bottom: 15px;
+    p {
+      font-size: 16px;
+      color: #444;
+      margin-bottom: 25px;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      background-color: #001f54;
+      color: white;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background-color: #003399;
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
     footer {
       margin-top: 30px;
       font-size: 12px;
-      color: #e0e0e0;
-    }
-
-    .details {
-      margin-top: 10px;
-      line-height: 1.7;
-    }
-
-    .download-btn {
-      margin-top: 20px;
-      padding: 12px 24px;
-      background-color: #001f54;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 10px;
-      display: inline-block;
-    }
-
-    .download-btn:hover {
-      background-color: #003399;
+      color: #666;
     }
   </style>
 </head>
 <body>
+
   <div class="card">
-    <img class="logo" src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo">
-    <div id="status"></div>
-    <div class="details" id="cert-details"></div>
+    <div class="logo-container">
+      <img src="https://indiraicem.ac.in/assets/images/ICEM-Logo.png" alt="ICEM Logo">
+    </div>
+
+    <h2>Choose Verification Method</h2>
+    <p>Please select one of the following options to verify the certificate:</p>
+
+    <a href="verify-by-id.html" class="btn">Verify by Certificate ID</a>
+    <a href="verify-by-qr.html" class="btn">Verify by QR Code</a>
 
     <footer>
       &copy; 2025 Indira College of Engineering and Management.<br />
@@ -86,41 +110,5 @@
     </footer>
   </div>
 
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const certID = params.get("id");
-
-    const statusEl = document.getElementById("status");
-    const detailsEl = document.getElementById("cert-details");
-
-    if (!certID) {
-      statusEl.innerHTML = '<div class="not-found">❌ Certificate ID not provided.</div>';
-    } else {
-      fetch("https://icem-certificate-verification.github.io/icem-certificate-portal/certificates.json")
-        .then(res => res.json())
-        .then(data => {
-          const cert = data[certID];
-          if (cert) {
-            statusEl.innerHTML = '<div class="verified">✅ Certificate Verified</div>';
-            detailsEl.innerHTML = `
-              <b>Name:</b> ${cert.name}<br>
-              <b>PRN:</b> ${cert.prn}<br>
-              <b>Branch:</b> ${cert.branch}<br>
-              <b>Date:</b> ${cert.date}<br>
-              <b>Title:</b> ${cert.title}<br>
-              <b>Achievement:</b> ${cert.achievement}<br>
-              <b>Issued By:</b> ${cert.issued_by}<br>
-              <b>Certificate ID:</b> ${certID}<br><br>
-              <a class="download-btn" href="https://icem-certificate-verification.github.io/certificates/${certID}.pdf" target="_blank">⬇️ Download Certificate</a>
-            `;
-          } else {
-            statusEl.innerHTML = '<div class="not-found">❌ Certificate Not Found</div>';
-          }
-        })
-        .catch(err => {
-          statusEl.innerHTML = '<div class="not-found">❌ Error loading certificate data</div>';
-        });
-    }
-  </script>
 </body>
 </html>
